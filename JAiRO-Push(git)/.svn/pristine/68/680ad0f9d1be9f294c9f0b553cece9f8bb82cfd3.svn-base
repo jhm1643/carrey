@@ -1,0 +1,56 @@
+package com.nexus.push.httpClient;
+
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.codec.http.HttpContent;
+import io.netty.handler.codec.http.HttpUtil;
+import io.netty.handler.codec.http.HttpObject;
+import io.netty.handler.codec.http.HttpResponse;
+import io.netty.handler.codec.http.LastHttpContent;
+import io.netty.util.CharsetUtil;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class HttpClientHandler extends SimpleChannelInboundHandler<HttpObject>{
+	protected String response_status;
+	@Override
+    public void channelRead0(ChannelHandlerContext ctx, HttpObject msg) {
+        if (msg instanceof HttpResponse) {
+            HttpResponse response = (HttpResponse) msg;
+
+            logger.info("STATUS: " + response.status());
+            logger.info("VERSION: " + response.protocolVersion());
+            response_status=response.status().toString();
+            
+            if (!response.headers().isEmpty()) {
+                for (CharSequence name: response.headers().names()) {
+                    for (CharSequence value: response.headers().getAll(name)) {
+                    	logger.info("HEADER: " + name + " = " + value);
+                    }
+                }
+            }
+
+            if (HttpUtil.isTransferEncodingChunked(response)) {
+            	logger.info("CHUNKED CONTENT {");
+            } else {
+            	logger.info("CONTENT {");
+            }
+        }
+        if (msg instanceof HttpContent) {
+            HttpContent content = (HttpContent) msg;
+
+            logger.info(content.content().toString(CharsetUtil.UTF_8));
+
+            if (content instanceof LastHttpContent) {
+                logger.info("} END OF CONTENT");
+                ctx.close();
+            }
+        }
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        cause.printStackTrace();
+        ctx.close();
+    }
+}
