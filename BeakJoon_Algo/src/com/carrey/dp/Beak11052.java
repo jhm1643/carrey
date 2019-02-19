@@ -1,4 +1,4 @@
-package com.carrey.algo;
+package com.carrey.dp;
 
 import java.util.Scanner;
 
@@ -78,6 +78,7 @@ P1 = 5, P2 = 2, P3 = 8, P4 = 10인 경우에는 카드가 1개 들어있는 카�
 		for(int i=0;i<n;i++) {
 			arr[i] = sc.nextInt();
 		}
+		
 		for(int i=0;i<n;i++) {
 			
 		}

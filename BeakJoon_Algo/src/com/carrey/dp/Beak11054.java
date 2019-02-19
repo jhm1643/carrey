@@ -1,4 +1,4 @@
-package com.carrey.algo;
+package com.carrey.dp;
 
 import java.util.Scanner;
 
