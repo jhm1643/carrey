@@ -1,12 +1,13 @@
 package com.carrey.sort;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Beak {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		
+	public static void main(String[] args) throws Exception{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(br.readLine());
 	}
 
 }

@@ -2,6 +2,7 @@ package com.carrey.sort;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -44,32 +45,7 @@ public class Beak11652 {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
-		HashMap<String, Integer> map = new HashMap<>();
-		String a;
-		for(int i=0;i<n;i++) {
-			a=br.readLine();
-			if(map.containsKey(a)){
-				map.put(a, map.get(a)+1);
-			}else {
-				map.put(a, 0);
-			}
-		}
-		
-		int result=0;
-		String before_key="";
-		for(String mapKey : map.keySet()) {
-			System.out.println("key : "+mapKey+" , val : "+map.get(mapKey));
-			if(result<map.get(mapKey)) {
-				result = Integer.parseInt(mapKey);
-				before_key=mapKey;
-			}else if(result==map.get(mapKey)) {
-				//System.out.println("before key : "+before_key+" , now key : "+mapKey);
-				result = Math.min(Integer.parseInt(before_key), Integer.parseInt(mapKey));
-			}
-		}
-		System.out.println(result);
-		
-		
+
 	}
 
 }
